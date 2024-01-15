@@ -1,0 +1,584 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model banner {
+  id              Int      @id @default(autoincrement())
+  bannerLocation  String?  @db.VarChar(255)
+  desc            String?  @db.VarChar(100)
+  target          String?  @db.VarChar(100)
+  mobileImgUrl    String?  @db.VarChar(255)
+  desktopImageUrl String?  @db.VarChar(255)
+  href            String?  @db.VarChar(255)
+  expose          Boolean?
+  exposeLimit     DateTime @default(now()) @db.DateTime(6)
+  createDate      DateTime @default(now()) @db.DateTime(6)
+  modifyDate      DateTime @default(now()) @db.DateTime(6)
+}
+
+model child {
+  id               Int       @id @default(autoincrement())
+  birthdate        DateTime  @db.Date
+  developLevel     Int
+  userId           String    @db.VarChar(100)
+  name             String    @db.VarChar(50)
+  lastSelectedTime DateTime? @db.DateTime(6)
+  profileUrl       String?   @db.VarChar(300)
+}
+
+model child_diagnosis {
+  id        Int    @id @default(autoincrement())
+  diagnosis String @db.VarChar(150)
+  childId   Int
+}
+
+model child_slow_area {
+  id      Int    @id @default(autoincrement())
+  area    String @db.VarChar(150)
+  childId Int
+}
+
+model cs {
+  id         Int      @id @default(autoincrement())
+  type       String   @db.VarChar(100)
+  name       String   @db.VarChar(100)
+  title      String   @db.VarChar(100)
+  content    String   @db.VarChar(3000)
+  phone      String   @db.VarChar(20)
+  email      String   @db.VarChar(100)
+  inst       String   @db.VarChar(100)
+  createDate DateTime @default(now()) @db.DateTime(6)
+  modifyDate DateTime @default(now()) @db.DateTime(6)
+  files      String?  @db.VarChar(1000)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model daycare_center {
+  CHILD_CNT_00   String?   @db.VarChar(10)
+  CHILD_CNT_01   String?   @db.VarChar(10)
+  CHILD_CNT_02   String?   @db.VarChar(10)
+  CHILD_CNT_03   String?   @db.VarChar(10)
+  CHILD_CNT_04   String?   @db.VarChar(10)
+  CHILD_CNT_05   String?   @db.VarChar(10)
+  CHILD_CNT_M2   String?   @db.VarChar(10)
+  CHILD_CNT_M5   String?   @db.VarChar(10)
+  CHILD_CNT_SP   String?   @db.VarChar(10)
+  CHILD_CNT_TOT  String?   @db.VarChar(10)
+  CLASS_CNT_00   String?   @db.VarChar(10)
+  CLASS_CNT_01   String?   @db.VarChar(10)
+  CLASS_CNT_02   String?   @db.VarChar(10)
+  CLASS_CNT_03   String?   @db.VarChar(10)
+  CLASS_CNT_04   String?   @db.VarChar(10)
+  CLASS_CNT_05   String?   @db.VarChar(10)
+  CLASS_CNT_M2   String?   @db.VarChar(10)
+  CLASS_CNT_M5   String?   @db.VarChar(10)
+  CLASS_CNT_SP   String?   @db.VarChar(10)
+  CLASS_CNT_TOT  String?   @db.VarChar(10)
+  CRREPNAME      String?   @db.VarChar(50)
+  EM_CNT_0Y      String?   @db.VarChar(10)
+  EM_CNT_1Y      String?   @db.VarChar(10)
+  EM_CNT_2Y      String?   @db.VarChar(10)
+  EM_CNT_4Y      String?   @db.VarChar(10)
+  EM_CNT_6Y      String?   @db.VarChar(10)
+  EM_CNT_A1      String?   @db.VarChar(10)
+  EM_CNT_A2      String?   @db.VarChar(10)
+  EM_CNT_A3      String?   @db.VarChar(10)
+  EM_CNT_A4      String?   @db.VarChar(10)
+  EM_CNT_A5      String?   @db.VarChar(10)
+  EM_CNT_A6      String?   @db.VarChar(10)
+  EM_CNT_A7      String?   @db.VarChar(10)
+  EM_CNT_A8      String?   @db.VarChar(10)
+  EM_CNT_A10     String?   @db.VarChar(10)
+  EM_CNT_TOT     String?   @db.VarChar(10)
+  EW_CNT_00      String?   @db.VarChar(10)
+  EW_CNT_01      String?   @db.VarChar(10)
+  EW_CNT_02      String?   @db.VarChar(10)
+  EW_CNT_03      String?   @db.VarChar(10)
+  EW_CNT_04      String?   @db.VarChar(10)
+  EW_CNT_05      String?   @db.VarChar(10)
+  EW_CNT_M6      String?   @db.VarChar(10)
+  EW_CNT_TOT     String?   @db.VarChar(10)
+  cctvinstlcnt   String?   @db.VarChar(10)
+  chcrtescnt     String?   @db.VarChar(10)
+  crabldt        String?   @db.VarChar(10)
+  craddr         String?   @db.VarChar(100)
+  crcapat        String?   @db.VarChar(10)
+  crcargbname    String?   @db.VarChar(50)
+  crchcnt        String?   @db.VarChar(10)
+  crcnfmdt       DateTime? @db.Date
+  crfaxno        String?   @db.VarChar(20)
+  crhome         String?   @db.VarChar(100)
+  crname         String?   @db.VarChar(50)
+  crpausebegindt String?   @db.VarChar(20)
+  crpauseenddt   String?   @db.VarChar(20)
+  crspec         String?   @db.VarChar(50)
+  crstatusname   String?   @db.VarChar(50)
+  crtelno        String?   @db.VarChar(20)
+  crtypename     String?   @db.VarChar(50)
+  datastdrdt     DateTime? @db.Date
+  la             String?   @db.VarChar(20)
+  lo             String?   @db.VarChar(20)
+  nrtrroomcnt    String?   @db.VarChar(10)
+  nrtrroomsize   String?   @db.VarChar(10)
+  plgrdco        String?   @db.VarChar(10)
+  sidoname       String?   @db.VarChar(50)
+  sigunname      String?   @db.VarChar(50)
+  stcode         String    @id @db.VarChar(20)
+  zipcode        String?   @db.VarChar(10)
+  createDate     DateTime  @default(now()) @db.DateTime(6)
+  modifyDate     DateTime  @default(now()) @db.DateTime(6)
+}
+
+model daycare_center_book_mark {
+  userId String @db.VarChar(100)
+  stcode String @db.VarChar(20)
+
+  @@id([userId, stcode])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model edu_exp {
+  id                     Int       @id @default(autoincrement())
+  operationStartDate     DateTime? @db.Date
+  operationEndDate       DateTime? @db.Date
+  operationDuration      String?   @db.VarChar(100)
+  applyStartDate         DateTime? @db.Date
+  applyEndDate           DateTime? @db.Date
+  applyDuration          String?   @db.VarChar(100)
+  disorderFlag           Boolean?  @default(false)
+  delayFlag              Boolean?  @default(false)
+  languageFlag           Boolean?  @default(false)
+  playFlag               Boolean?  @default(false)
+  socialFlag             Boolean?  @default(false)
+  sensoryIntegrationFlag Boolean?  @default(false)
+  artFlag                Boolean?  @default(false)
+  musicFlag              Boolean?  @default(false)
+  physicalFlag           Boolean?  @default(false)
+  schoolPreparationFlag  Boolean?  @default(false)
+  afterSchoolClassFlag   Boolean?  @default(false)
+  othersFlag             Boolean?  @default(false)
+  oneDayClassFlag        Boolean?  @default(false)
+  parentsEducationFlag   Boolean?  @default(false)
+  siblingsFlag           Boolean?  @default(false)
+  associationFlag        Boolean?  @default(false)
+  eventFlag              Boolean?  @default(false)
+  ageInfantFlag          Boolean?  @default(false)
+  ageElementSchoolFlag   Boolean?  @default(false)
+  ageTeenagerFlag        Boolean?  @default(false)
+  online                 Boolean?  @default(false)
+  thumbnail              String?   @db.VarChar(100)
+  welfareName            String    @db.VarChar(100)
+  programTitle           String    @db.VarChar(200)
+  html                   String    @db.VarChar(5000)
+  viewCnt                Int?      @default(0)
+  applyMethod            String    @db.VarChar(100)
+  price                  String    @db.VarChar(100)
+  addressSido            String    @db.VarChar(100)
+  addressSigungu         String    @db.VarChar(100)
+  addressDetail          String    @db.VarChar(100)
+  websiteURL             String    @db.VarChar(1000)
+  hospitalInformationId  Decimal?  @db.Decimal(10, 0)
+  createDate             DateTime  @default(now()) @db.DateTime(6)
+  modifyDate             DateTime  @default(now()) @db.DateTime(6)
+  applyFinished          Boolean?  @default(false)
+  governmentProgramFlag  Boolean?  @default(false)
+  recogFlag              Boolean?  @default(false)
+  ABAFlag                Boolean?  @default(false)
+  psychologyFlag         Boolean?  @default(false)
+  userId                 String?   @db.VarChar(100)
+  hostChannelId          String?   @db.VarChar(100)
+  deleteAt               DateTime? @db.DateTime(0)
+  applyFormUrl           String?   @db.VarChar(200)
+  applyTel               String?   @db.VarChar(15)
+  applyByVisit           Int?      @db.TinyInt
+  applyEtcMethod         String?   @db.VarChar(200)
+  isFCFS                 Int?      @db.TinyInt
+  isOperationDateNotSet  Int?      @db.TinyInt
+  ageMin                 Int?
+  ageMax                 Int?
+  contactTel             String?   @db.VarChar(15)
+  contactManager         String?   @db.VarChar(20)
+  address                String?   @db.VarChar(3000)
+}
+
+model edu_exp_bookmark {
+  userId   String @db.VarChar(100)
+  eduExpId Int
+
+  @@id([userId, eduExpId])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model hospital_information {
+  id                   Int     @id @default(autoincrement())
+  institution          String? @db.VarChar(100)
+  address              String? @db.VarChar(100)
+  jibunAddress         String? @db.VarChar(500)
+  hp                   String? @db.VarChar(500)
+  introduce            String? @db.VarChar(2000)
+  category             String? @db.VarChar(100)
+  keywords             String? @db.VarChar(1000)
+  businessHour         String? @db.VarChar(1000)
+  latitude             String? @db.VarChar(100)
+  longitude            String? @db.VarChar(100)
+  parking              Int?    @db.TinyInt
+  homepage             String? @db.VarChar(100)
+  balDalJaeWhalService Int?    @db.TinyInt
+  wooriAiSimriJiWon    Int?    @db.TinyInt
+  ahdongSimRiJiWon     Int?    @db.TinyInt
+  youngUahBAlDalJiWon  Int?    @db.TinyInt
+  gyoYoukChungJiWon    Int?    @db.TinyInt
+  institutionType      String? @db.VarChar(100)
+  voucher              String? @db.VarChar(100)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hospital_information_book_mark {
+  userId                String? @db.VarChar(100)
+  hospitalInformationId Int?
+
+  @@ignore
+}
+
+model host_channel {
+  id            String    @id @db.VarChar(100)
+  name          String    @db.VarChar(100)
+  introduction  String    @db.VarChar(200)
+  profileUri    String?   @db.VarChar(300)
+  coverUri      String?   @db.VarChar(300)
+  userId        String    @db.VarChar(100)
+  repNumber     String?   @db.VarChar(15)
+  repEmail      String?   @db.VarChar(100)
+  address       String?   @db.VarChar(100)
+  detailAddress String?   @db.VarChar(100)
+  webSite       String?   @db.VarChar(200)
+  deleteAt      DateTime? @db.DateTime(0)
+}
+
+model host_notice {
+  id            Int      @id @default(autoincrement())
+  viewCnt       Int      @default(0)
+  title         String   @db.VarChar(500)
+  content       String   @db.VarChar(4000)
+  createDate    DateTime @default(now()) @db.DateTime(6)
+  modifyDate    DateTime @default(now()) @db.DateTime(6)
+  hostChannelId String   @db.VarChar(100)
+}
+
+model host_user {
+  id             Int     @id @default(autoincrement())
+  password       String  @db.VarChar(100)
+  businessNumber String? @db.VarChar(20)
+  managerName    String  @db.VarChar(100)
+  user           user    @relation(fields: [id], references: [hostUserId])
+}
+
+model kindergarten {
+  officeedu              String?  @db.VarChar(255)
+  subofficeedu           String?  @db.VarChar(255)
+  kindercode             String   @id @db.VarChar(255)
+  kindername             String?  @db.VarChar(255)
+  establish              String?  @db.VarChar(255)
+  rppnname               String?  @db.VarChar(255)
+  ldgrname               String?  @db.VarChar(255)
+  edate                  String?  @db.VarChar(255)
+  odate                  String?  @db.VarChar(255)
+  addr                   String?  @db.VarChar(255)
+  telno                  String?  @db.VarChar(255)
+  hpaddr                 String?  @db.VarChar(255)
+  opertime               String?  @db.VarChar(255)
+  clcnt3                 String?  @db.VarChar(255)
+  clcnt4                 String?  @db.VarChar(255)
+  clcnt5                 String?  @db.VarChar(255)
+  mixclcnt               String?  @db.VarChar(255)
+  shclcnt                String?  @db.VarChar(255)
+  prmstfcnt              String?  @db.VarChar(255)
+  ag3fpcnt               String?  @db.VarChar(255)
+  ag4fpcnt               String?  @db.VarChar(255)
+  mixfpcnt               String?  @db.VarChar(255)
+  spcnfpcnt              String?  @db.VarChar(255)
+  ppcnt3                 String?  @db.VarChar(255)
+  ppcnt4                 String?  @db.VarChar(255)
+  ppcnt5                 String?  @db.VarChar(255)
+  mixppcnt               String?  @db.VarChar(255)
+  shppcnt                String?  @db.VarChar(255)
+  vhcl_oprn_yn           String?  @db.VarChar(255)
+  cctv_ist_yn            String?  @db.VarChar(255)
+  cctv_ist_total         String?  @db.VarChar(255)
+  cctv_ist_in            String?  @db.VarChar(255)
+  cctv_ist_out           String?  @db.VarChar(255)
+  drcnt                  String?  @db.VarChar(255)
+  adcnt                  String?  @db.VarChar(255)
+  hdst_thcnt             String?  @db.VarChar(255)
+  asps_thcnt             String?  @db.VarChar(255)
+  gnrl_thcnt             String?  @db.VarChar(255)
+  spcn_thcnt             String?  @db.VarChar(255)
+  ntcnt                  String?  @db.VarChar(255)
+  ntrt_thcnt             String?  @db.VarChar(255)
+  shcnt_thcnt            String?  @db.VarChar(255)
+  incnt                  String?  @db.VarChar(255)
+  owcnt                  String?  @db.VarChar(255)
+  hdst_tchr_qacnt        String?  @db.VarChar(255)
+  rgth_gd1_qacnt         String?  @db.VarChar(255)
+  rgth_gd2_qacnt         String?  @db.VarChar(255)
+  asth_qacnt             String?  @db.VarChar(255)
+  yy1_undr_thcnt         String?  @db.VarChar(255)
+  yy1_abv_yy2_undr_thcnt String?  @db.VarChar(255)
+  yy2_abv_yy4_undr_thcnt String?  @db.VarChar(255)
+  yy4_abv_yy6_undr_thcnt String?  @db.VarChar(255)
+  yy6_abv_thcnt          String?  @db.VarChar(255)
+  pbntTmng               String?  @db.VarChar(255)
+  latitude               String?  @db.VarChar(20)
+  longitude              String?  @db.VarChar(20)
+  createDate             DateTime @default(now()) @db.DateTime(6)
+  modifyDate             DateTime @default(now()) @db.DateTime(6)
+}
+
+model kindergarten_book_mark {
+  userId     String @db.VarChar(100)
+  kindercode String @db.VarChar(255)
+
+  @@id([userId, kindercode])
+}
+
+model m_chapter {
+  id         Int      @id @default(autoincrement())
+  magazineId Decimal? @db.Decimal(10, 0)
+  title      String?  @db.VarChar(100)
+}
+
+model m_contents {
+  id         Int      @id @default(autoincrement())
+  chapterId  Int?
+  title      String?  @db.VarChar(100)
+  author     String?  @db.VarChar(100)
+  content    String?  @db.Text
+  thumbnail  String?  @db.VarChar(1000)
+  createDate DateTime @default(now()) @db.DateTime(6)
+  modifyDate DateTime @default(now()) @db.DateTime(6)
+}
+
+model m_contents_bookmark {
+  userId      String @db.VarChar(50)
+  mContentsId Int
+
+  @@id([userId, mContentsId])
+}
+
+model m_contents_tag {
+  id          Int      @id @default(autoincrement())
+  mContentsId Decimal? @db.Decimal(10, 0)
+  tag         String?  @db.VarChar(100)
+}
+
+model m_contents_view {
+  userId      String   @db.VarChar(100)
+  mContentsId Int
+  modifyDate  DateTime @default(now()) @db.DateTime(6)
+  createDate  DateTime @default(now()) @db.DateTime(6)
+
+  @@id([userId, mContentsId])
+}
+
+model magazine {
+  id               Int     @id @default(autoincrement())
+  name             String? @db.VarChar(100)
+  thumbnailDesktop String? @db.VarChar(100)
+  thumbnailMobile  String? @db.VarChar(100)
+  author           String? @db.VarChar(100)
+  orderIndex       Int?
+}
+
+model magazine_bookmark {
+  userId     String @db.VarChar(100)
+  magazineId Int
+
+  @@id([userId, magazineId])
+}
+
+model magazine_tag {
+  id         Int      @id @default(autoincrement())
+  magazineId Decimal? @db.Decimal(10, 0)
+  tag        String?  @db.VarChar(100)
+}
+
+model meeting {
+  id              Int      @id @default(autoincrement())
+  title           String   @db.VarChar(200)
+  subTitle        String   @db.VarChar(100)
+  hostname        String   @db.VarChar(100)
+  description     String   @db.VarChar(2000)
+  sido            String?  @db.VarChar(50)
+  sigungu         String?  @db.VarChar(50)
+  address         String?  @db.VarChar(1000)
+  operationTime   String   @db.VarChar(1000)
+  maxParticipants Int?
+  price           Int
+  priceText       String?  @db.VarChar(100)
+  applyStartDate  DateTime @db.DateTime(6)
+  applyEndDate    DateTime @db.DateTime(6)
+  applyFinished   Boolean  @default(false)
+  applyUrl        String?  @db.VarChar(2000)
+  thumbnail       String?  @db.VarChar(2000)
+  html            String?  @db.Text
+  createDate      DateTime @default(now()) @db.DateTime(6)
+  modifyDate      DateTime @default(now()) @db.DateTime(6)
+}
+
+model meeting_bookmark {
+  userId    String @db.VarChar(100)
+  meetingId Int
+
+  @@id([userId, meetingId])
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  timestamp BigInt
+  name      String @db.VarChar(255)
+}
+
+model notice {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(100)
+  content    String   @db.VarChar(100)
+  createDate DateTime @default(now()) @db.DateTime(6)
+  modifyDate DateTime @default(now()) @db.DateTime(6)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model sp_school {
+  sido               String @db.VarChar(255)
+  estType            String @db.VarChar(255)
+  orgName            String @id @db.VarChar(255)
+  disabilityScope    String @db.VarChar(255)
+  principalName      String @db.VarChar(255)
+  authDate           String @db.VarChar(10)
+  openDate           String @db.VarChar(10)
+  principalOfficeTel String @db.VarChar(255)
+  adminOfficeTel     String @db.VarChar(255)
+  academicOfficeTel  String @db.VarChar(255)
+  fax                String @db.VarChar(50)
+  postalCode         String @db.VarChar(10)
+  address            String @db.VarChar(500)
+  latitude           String @db.VarChar(50)
+  longitude          String @db.VarChar(50)
+  website            String @db.VarChar(255)
+}
+
+model sp_school_book_mark {
+  userId  String @db.VarChar(100)
+  orgName String @db.VarChar(255)
+
+  @@id([userId, orgName])
+}
+
+model story {
+  id            Int       @id @default(autoincrement())
+  userId        String    @db.VarChar(100)
+  replyFlag     Boolean?  @default(false)
+  pseudonymFlag Boolean?  @default(false)
+  contents      String    @db.VarChar(1000)
+  createDate    DateTime  @default(now()) @db.DateTime(6)
+  modifyDate    DateTime  @default(now()) @db.DateTime(6)
+  deleteAt      DateTime? @db.DateTime(0)
+  color         String    @db.VarChar(10)
+}
+
+model story_like {
+  storyId Int
+  userId  String @db.VarChar(100)
+
+  @@id([storyId, userId])
+}
+
+model story_reply {
+  id            Int       @id @default(autoincrement())
+  storyId       Int
+  parentsId     Int?
+  replyId       Int?
+  pseudonymFlag Boolean?  @default(false)
+  pseudonym     Int?
+  quickTag      String?   @db.VarChar(50)
+  createDate    DateTime  @default(now()) @db.DateTime(6)
+  modifyDate    DateTime  @default(now()) @db.DateTime(6)
+  contents      String?   @db.VarChar(5000)
+  userId        String?   @db.VarChar(300)
+  deleteAt      DateTime? @db.DateTime(0)
+  replyFlag     Boolean?
+}
+
+model story_reply_like {
+  storyReplyId Int
+  userId       String   @db.VarChar(50)
+  createDate   DateTime @default(now()) @db.DateTime(6)
+  modifyDate   DateTime @default(now()) @db.DateTime(6)
+
+  @@id([storyReplyId, userId])
+}
+
+model story_reply_report {
+  storyReplyId Int
+  userId       String   @db.VarChar(100)
+  createDate   DateTime @default(now()) @db.DateTime(6)
+  modifyDate   DateTime @default(now()) @db.DateTime(6)
+  reason       String?  @db.VarChar(100)
+
+  @@id([storyReplyId, userId])
+}
+
+model story_report {
+  storyId    Int
+  userId     String   @db.VarChar(100)
+  createDate DateTime @default(now()) @db.DateTime(6)
+  modifyDate DateTime @default(now()) @db.DateTime(6)
+  reason     String   @db.VarChar(100)
+
+  @@id([reason, storyId, userId])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user {
+  createDate        DateTime    @default(now()) @db.DateTime(6)
+  modifyDate        DateTime    @default(now()) @db.DateTime(6)
+  id                String      @id @db.VarChar(50)
+  userEmail         String      @db.VarChar(100)
+  userNickname      String      @db.VarChar(15)
+  marketingFlag     Int?        @db.TinyInt
+  pushToken         String?     @db.VarChar(200)
+  role              user_role   @default(User)
+  deleteAt          DateTime?   @db.DateTime(0)
+  refreshToken      String?     @db.VarChar(2000)
+  sido              String?     @db.VarChar(500)
+  sigungu           String?     @db.VarChar(500)
+  latestLoginTime   DateTime?   @db.DateTime(0)
+  phone             String?     @db.VarChar(100)
+  name              String?     @db.VarChar(100)
+  profileUrl        String?     @db.VarChar(300)
+  emailADAgreedTime DateTime?   @db.DateTime(0)
+  smsADAgreedTime   DateTime?   @db.DateTime(0)
+  provider          String?     @db.VarChar(100)
+  hostUserId        Int?        @unique
+  host_user         host_user[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model visit_purpose {
+  userId     String? @db.VarChar(100)
+  difficulty String? @db.VarChar(2000)
+
+  @@ignore
+}
+
+enum user_role {
+  Admin
+  User
+  Dummy
+  Tester
+  Expert
+}
